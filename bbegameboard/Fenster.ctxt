@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=Fenster
+comment1.params=windowTitle\ gameboard
+comment1.target=Fenster(java.lang.String,\ Gameboard)
+comment2.params=
+comment2.target=void\ start()
+numComments=3

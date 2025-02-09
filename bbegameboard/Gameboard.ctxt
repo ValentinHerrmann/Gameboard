@@ -1,0 +1,27 @@
+#BlueJ class context
+comment0.target=Gameboard
+comment1.params=
+comment1.target=Gameboard()
+comment10.params=
+comment10.target=void\ run()
+comment11.params=fensterTitel
+comment11.target=void\ spielStarten(java.lang.String)
+comment2.params=backgroundImagePath
+comment2.target=void\ setBackgroundImagePath(java.lang.String)
+comment3.params=spieler
+comment3.target=void\ addSpieler(java.lang.Object)
+comment3.text=\r\n\ Ein\ Entity\ zum\ Gameboard\ hinzuf\u00C3\u00BCgen.\r\n
+comment4.params=spieler
+comment4.target=void\ removeSpieler(java.lang.Object)
+comment4.text=\r\n\ Ein\ Entity\ vom\ Gameboard\ entfernen\ (nachdem\ die\ run()-Methode\ aller\ Entites\ aufgerufen\ wurde).\r\n
+comment5.params=
+comment5.target=java.lang.Object[]\ getSpieler()
+comment6.params=
+comment6.target=void\ addNotify()
+comment7.params=g
+comment7.target=void\ paintComponent(java.awt.Graphics)
+comment8.params=
+comment8.target=void\ cycle()
+comment9.params=
+comment9.target=void\ applyEntityModifications()
+numComments=12
