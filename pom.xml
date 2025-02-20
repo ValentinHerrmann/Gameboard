@@ -15,5 +15,10 @@
     </properties>
     <build>
         <sourceDirectory>.</sourceDirectory>
+        <resources>
+            <resource>
+                <directory>resources</directory>
+            </resource>
+        </resources>
     </build>
 </project>
