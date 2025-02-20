@@ -8,3 +8,5 @@ debug.log
 *.iml
 
 logs/
+
+target/
