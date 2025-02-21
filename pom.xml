@@ -5,8 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>groupId</groupId>
-    <artifactId>Gameboard</artifactId>
-    <version>1.5</version>
+    <artifactId>GameboardVorlage</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
