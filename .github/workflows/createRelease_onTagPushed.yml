@@ -37,6 +37,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_TOK }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: target/Gameboard-*.jar
+          asset_path: target/Gameboard-1.x.jar
           asset_name: GameboardVorlage.jar
           asset_content_type: application/java-archive
