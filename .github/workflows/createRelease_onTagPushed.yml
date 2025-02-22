@@ -20,14 +20,16 @@ jobs:
           java-version: '17'
 
       - name: Build with Maven
-        run: mvn clean package
-
-      
+        run: |
+          mvn clean package
+          cd target
+          mv Gameboard-1.x.jar GameboardVorlage.jar
+                
       -   name: Release
           uses: softprops/action-gh-release@v2
           with:
               body_path: GB_CHANGELOG.MD
               files: |
                   GB_CHANGELOG.MD
-                  target/Gameboard-1.x.jar
+                  target/GameboardVorlage.jar
               token: ${{ secrets.GH_TOK }}
