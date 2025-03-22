@@ -1,4 +1,4 @@
-package bbegameboard;
+package bbe;
 
 @SuppressWarnings("unused")
 public class Gameboard

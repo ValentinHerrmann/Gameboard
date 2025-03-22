@@ -1,4 +1,4 @@
-package bbegameboard;
+package bbe;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

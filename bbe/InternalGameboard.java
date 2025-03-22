@@ -1,4 +1,4 @@
-package bbegameboard;  
+package bbe;
 
 import javax.swing.*;
 import java.awt.*;
