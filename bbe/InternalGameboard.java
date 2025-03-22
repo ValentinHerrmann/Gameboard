@@ -1,4 +1,4 @@
-package bbegameboard;  
+package bbe;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,23 +6,23 @@ import java.awt.event.KeyEvent;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public class Gameboard extends JPanel implements Runnable
+class InternalGameboard extends JPanel implements Runnable
 {
-    private List<EntityReflection> entities = new ArrayList<>();
+    private final List<EntityReflection> entities = new ArrayList<>();
     private List<Object> rmEntities = new ArrayList<>();
     private List<Object> addEntities = new ArrayList<>();
-    private Image backgroundImage;
     protected boolean isGameRunning = true;
     protected String gameOverMessage;
 
-    private KeyboardListener keyboardListener = new KeyboardListener(
+    private final KeyboardListener keyboardListener = new KeyboardListener(
             new int[] {KeyEvent.VK_LEFT, KeyEvent.VK_UP, KeyEvent.VK_RIGHT, KeyEvent.VK_DOWN, KeyEvent.VK_SPACE,
                     KeyEvent.VK_W, KeyEvent.VK_A, KeyEvent.VK_S, KeyEvent.VK_D, KeyEvent.VK_ENTER}
     );
 
 
-    public Gameboard()
+    InternalGameboard()
     {
         int w = 1000;
         int h = 700;
@@ -41,21 +41,21 @@ public class Gameboard extends JPanel implements Runnable
         try
         {
             String absolutePath = Paths.get(backgroundImagePath).toAbsolutePath().toString();
-            backgroundImage = new ImageIcon(absolutePath).getImage();
+            Image backgroundImage = new ImageIcon(absolutePath).getImage();
             int w = backgroundImage.getWidth(this);
             int h = backgroundImage.getHeight(this);
             setPreferredSize(new Dimension(w, h));
         }
-        catch(Exception e) { }
+        catch(Exception ignored) { }
     }
 
 
     /**
      * Ein Entity zum Gameboard hinzufügen.
      */
-    public void addSpieler(Object spieler)
+    public void add(Object obj)
     {
-        addEntities.add(spieler);
+        addEntities.add(obj);
         applyEntityModifications();
     }
 
@@ -63,14 +63,19 @@ public class Gameboard extends JPanel implements Runnable
     /**
      * Ein Entity vom Gameboard entfernen (nachdem die run()-Methode aller Entites aufgerufen wurde).
      */
-    public void removeSpieler(Object spieler)
+    public void remove(Object obj)
     {
-        rmEntities.add(spieler);
+        rmEntities.add(obj);
     }
 
-    public Object[] getSpieler()
+    public void clear()
     {
-        return entities.stream().map(x-> (Object)x.getEntity()).toArray(Object[]::new);
+        rmEntities = List.copyOf(entities);
+    }
+
+    public Object[] getObjects()
+    {
+        return entities.stream().map(EntityReflection::getEntity).toArray(Object[]::new);
     }
 
     @Override
@@ -104,24 +109,25 @@ public class Gameboard extends JPanel implements Runnable
                         g.setColor(Color.BLACK);
                         g.drawString(e.getText(), x, y - 10);
                     }
-                } catch (Exception ex) { }
+                } catch (Exception ignored) { }
                 try
                 {
-                    e.setDown(keyboardListener.getPressedKeys().get(KeyEvent.VK_DOWN));
-                    e.setLeft(keyboardListener.getPressedKeys().get(KeyEvent.VK_LEFT));
-                    e.setRight(keyboardListener.getPressedKeys().get(KeyEvent.VK_RIGHT));
-                    e.setUp(keyboardListener.getPressedKeys().get(KeyEvent.VK_UP));
-                    e.setSpace(keyboardListener.getPressedKeys().get(KeyEvent.VK_SPACE));
-                    e.setW(keyboardListener.getPressedKeys().get(KeyEvent.VK_W));
-                    e.setA(keyboardListener.getPressedKeys().get(KeyEvent.VK_A));
-                    e.setS(keyboardListener.getPressedKeys().get(KeyEvent.VK_S));
-                    e.setD(keyboardListener.getPressedKeys().get(KeyEvent.VK_D));
-                    e.setEnter(keyboardListener.getPressedKeys().get(KeyEvent.VK_ENTER));
-                } catch (Exception ex) { }
+                    Map<Integer,Boolean> pressedKeys = keyboardListener.getPressedKeys();
+                    e.setDown(pressedKeys.get(KeyEvent.VK_DOWN));
+                    e.setLeft(pressedKeys.get(KeyEvent.VK_LEFT));
+                    e.setRight(pressedKeys.get(KeyEvent.VK_RIGHT));
+                    e.setUp(pressedKeys.get(KeyEvent.VK_UP));
+                    e.setSpace(pressedKeys.get(KeyEvent.VK_SPACE));
+                    e.setW(pressedKeys.get(KeyEvent.VK_W));
+                    e.setA(pressedKeys.get(KeyEvent.VK_A));
+                    e.setS(pressedKeys.get(KeyEvent.VK_S));
+                    e.setD(pressedKeys.get(KeyEvent.VK_D));
+                    e.setEnter(pressedKeys.get(KeyEvent.VK_ENTER));
+                } catch (Exception ignored) { }
 
                 Toolkit.getDefaultToolkit().sync();
             }
-            catch(Exception ex) { }
+            catch(Exception ignored) { }
         }
     }
 
@@ -133,31 +139,19 @@ public class Gameboard extends JPanel implements Runnable
         {
             try
             {
-                keyboardListener.getPressedKeys();
                 e.run();
-                if(!(e.getEntity() instanceof Coin))
+                for(EntityReflection other : entities)
                 {
-                    for(EntityReflection other : entities)
+                    if(e != other)
                     {
-                        if(e != other)
+                        if(e.getHitbox().collidesWithOther(other.getHitbox()))
                         {
-                            if(e.getHitbox().collidesWithOther(other.getHitbox()))
-                            {
-                                if(e.getEntity() instanceof Coin)
-                                {
-                                    e.crashMuenze();
-                                    removeSpieler(other.getEntity());
-                                }
-                                else
-                                {
-                                    e.crashSpieler();
-                                }
-                            }
+                            e.crash(other.getEntity().getClass().getSimpleName(), other.getEntity());
                         }
                     }
                 }
             }
-            catch(Exception ex) { }
+            catch(Exception ignored) { }
         }
     }
     
@@ -172,16 +166,14 @@ public class Gameboard extends JPanel implements Runnable
                     entities.add(new EntityReflection(e, "car.gif"));
                 }
             }
-
-
             for (Object e : rmEntities)
             {
                 entities.removeIf(x -> x.getEntity() == e);
             }
-            addEntities = new ArrayList<Object>();
-            rmEntities = new ArrayList<Object>();
+            addEntities = new ArrayList<>();
+            rmEntities = new ArrayList<>();
         }
-        catch(Exception e) { }
+        catch(Exception ignored) { }
     }
 
     @Override
@@ -204,8 +196,9 @@ public class Gameboard extends JPanel implements Runnable
                 sleep = 2;
             }
 
-            try { Thread.sleep(sleep); }
-            catch (InterruptedException e) { }
+            try { //noinspection BusyWait
+                Thread.sleep(sleep); }
+            catch (InterruptedException ignored) { }
 
             beforeTime = System.currentTimeMillis();
         }
@@ -213,10 +206,10 @@ public class Gameboard extends JPanel implements Runnable
         System.exit(0);
     }
     
-    public void spielStarten(String fensterTitel)
+    public void start(String title)
     {
-        Fenster fenster = new Fenster(fensterTitel, this);
-        fenster.start();
+        Window window = new Window(title, this);
+        window.start();
     }
 }
 

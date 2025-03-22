@@ -1,15 +1,16 @@
-package bbegameboard;
+package bbe;
 
 import java.awt.*;
 
-public class Hitbox
+@SuppressWarnings("unused")
+class Hitbox
 {
     private int x;
     private int y;
     private int previousX;
     private int previousY;
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
 
     private boolean intersectsFromTop;
     private boolean intersectsFromBottom;
@@ -21,7 +22,7 @@ public class Hitbox
     private boolean lastWasCollision;
 
 
-    public Hitbox(int x, int y, int width, int height)
+    Hitbox(int x, int y, int width, int height)
     {
         this.x = x;
         this.y = y;
@@ -29,7 +30,7 @@ public class Hitbox
         this.height = height;
     }
 
-    public void setCoordinates(int x, int y)
+    void setCoordinates(int x, int y)
     {
         previousX = this.x;
         previousY = this.y;
@@ -39,7 +40,7 @@ public class Hitbox
         intersectionsDetermined = false; // = intersectsFromTop = intersectsFromBottom = intersectsFromLeft = intersectsFromRight = false;
     }
 
-    public Polygon getPolygon()
+    Polygon getPolygon()
     {
         int[] xPoints = {x, x + width, x + width, x};
         int[] yPoints = {y, y, y + height, y + height};
@@ -47,13 +48,13 @@ public class Hitbox
         return new Polygon(xPoints, yPoints, 4);
     }
 
-    public boolean collidesWithOther(Hitbox other)
+    boolean collidesWithOther(Hitbox other)
     {
         lastWasCollision = lastStepPolygon().intersects(other.getPolygon().getBounds());
         return lastWasCollision;
     }
 
-    public boolean collidesWithOther_fromAbove(Hitbox other)
+    boolean collidesWithOther_fromAbove(Hitbox other)
     {
         if(!collidesWithOther(other))
         {
@@ -66,7 +67,7 @@ public class Hitbox
         return intersectsFromTop;
     }
 
-    public boolean collidesWithOther_fromBelow(Hitbox other)
+    boolean collidesWithOther_fromBelow(Hitbox other)
     {
         boolean prevWasCollission = lastWasCollision;
         if(!collidesWithOther(other))
@@ -81,7 +82,7 @@ public class Hitbox
         return intersectsFromBottom;
     }
 
-    public boolean collidesWithOther_fromLeft(Hitbox other)
+    boolean collidesWithOther_fromLeft(Hitbox other)
     {
         boolean prevWasCollission = lastWasCollision;
         if(!collidesWithOther(other))
@@ -95,7 +96,7 @@ public class Hitbox
         return intersectsFromLeft;
     }
 
-    public boolean collidesWithOther_fromRight(Hitbox other)
+    boolean collidesWithOther_fromRight(Hitbox other)
     {
         boolean prevWasCollission = lastWasCollision;
         if(!collidesWithOther(other))
@@ -109,7 +110,7 @@ public class Hitbox
         return intersectsFromRight;
     }
 
-    public Polygon lastStepPolygon()
+    Polygon lastStepPolygon()
     {
         int[] xPoints = new int[8];
         System.arraycopy(getPolygon().xpoints, 0, xPoints, 0, 4);
