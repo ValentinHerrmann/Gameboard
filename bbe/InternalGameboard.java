@@ -163,7 +163,7 @@ class InternalGameboard extends JPanel implements Runnable
             {
                 for (Object e : addEntities)
                 {
-                    entities.add(new EntityReflection(e, "car.gif"));
+                    entities.add(new EntityReflection(e, "player/car.gif"));
                 }
             }
             for (Object e : rmEntities)
