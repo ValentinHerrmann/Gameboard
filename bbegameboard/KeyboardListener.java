@@ -5,9 +5,9 @@ import java.awt.event.KeyListener;
 import java.util.HashMap;
 import java.util.Map;
 
-public class KeyboardListener implements KeyListener
+class KeyboardListener implements KeyListener
 {
-    private Map<Integer,Boolean> pressedKeys = new HashMap<>();
+    private final Map<Integer,Boolean> pressedKeys = new HashMap<>();
 
     public KeyboardListener(int[] keys)
     {

@@ -3,9 +3,9 @@ package bbegameboard;
 import javax.swing.*;
 import java.awt.*;
 
-public class Fenster extends JFrame
+class Window extends JFrame
 {
-    public Fenster(String windowTitle, Gameboard gameboard)
+    public Window(String windowTitle, InternalGameboard gameboard)
     {
         // Gameboard dem Fenster hinzufuegen
         add(gameboard);
@@ -23,13 +23,10 @@ public class Fenster extends JFrame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public void start()
+    void start()
     {
         // Spiel starten
         // Achtung: Hier keinesfalls etwas aendern!
-        EventQueue.invokeLater(() ->
-        {
-            this.setVisible(true);
-        });
+        EventQueue.invokeLater(() -> this.setVisible(true));
     }
 }

@@ -1,26 +1,26 @@
 package bbegameboard; 
 
-import javax.swing.*;
 import java.awt.*;
 
-public class EntityReflection
+@SuppressWarnings("UnnecessaryReturnStatement")
+class EntityReflection
 {
-    private Object e;
+    private final Object e;
     private Hitbox h;
-    private String backupPath;
+    private final String backupPath;
 
 
-    public EntityReflection(Object entity, String backupImgPath)
+    EntityReflection(Object entity, String backupImgPath)
     {
         e = entity;
         backupPath = backupImgPath;
     }
 
-    public Object getEntity()
+    Object getEntity()
     {
         return e;
     }
-    public Hitbox getHitbox()
+    Hitbox getHitbox()
     {
         if(h == null)
         {
@@ -30,24 +30,24 @@ public class EntityReflection
         h.setCoordinates(getX(),getY());
         return h;
     }
-    public Image getImage()
+    Image getImage()
     {
         try
         {
             Object oImg = e.getClass().getMethod("getImagePath").invoke(e);
             if(oImg instanceof String path)
             {
-                return new ImageIcon(path).getImage();
+                return ResourceTools.getImage(path);
             }
         }
         catch(Exception ex)
         {
             // method does not exist
         }
-        return new ImageIcon(backupPath).getImage();
+        return ResourceTools.getImage(backupPath);
     }
 
-    public int getX()
+    int getX()
     {
         try
         {
@@ -61,7 +61,7 @@ public class EntityReflection
         return 0;
     }
 
-    public int getY()
+    int getY()
     {
         try
         {
@@ -74,7 +74,7 @@ public class EntityReflection
         return 0;
     }
 
-    public String getText()
+    String getText()
     {
         try
         {
@@ -91,7 +91,7 @@ public class EntityReflection
         return null;
     }
 
-    public void run()
+    void run()
     {
         try
         {
@@ -103,7 +103,7 @@ public class EntityReflection
         }
     }
 
-    public void setUp(boolean b)
+    void setUp(boolean b)
     {
         try
         {
@@ -116,7 +116,7 @@ public class EntityReflection
     }
 
 
-    public void setDown(boolean b)
+    void setDown(boolean b)
     {
         try
         {
@@ -128,7 +128,7 @@ public class EntityReflection
         }
     }
 
-    public void setLeft(boolean b)
+    void setLeft(boolean b)
     {
         try
         {
@@ -140,7 +140,7 @@ public class EntityReflection
         }
     }
 
-    public void setRight(boolean b)
+    void setRight(boolean b)
     {
         try
         {
@@ -152,7 +152,7 @@ public class EntityReflection
         }
     }
 
-    public void setSpace(boolean b)
+    void setSpace(boolean b)
     {
         try
         {
@@ -164,7 +164,7 @@ public class EntityReflection
         }
     }
 
-    public void setEnter(boolean b)
+    void setEnter(boolean b)
     {
         try
         {
@@ -176,7 +176,7 @@ public class EntityReflection
         }
     }
 
-    public void setW(boolean b)
+    void setW(boolean b)
     {
         try
         {
@@ -188,7 +188,7 @@ public class EntityReflection
         }
     }
 
-    public void setA(boolean b)
+    void setA(boolean b)
     {
         try
         {
@@ -200,7 +200,7 @@ public class EntityReflection
         }
     }
 
-    public void setS(boolean b)
+    void setS(boolean b)
     {
         try
         {
@@ -212,7 +212,7 @@ public class EntityReflection
         }
     }
 
-    public void setD(boolean b)
+    void setD(boolean b)
     {
         try
         {
@@ -224,27 +224,37 @@ public class EntityReflection
         }
     }
 
-    public void crashMuenze()
+    void crash(String className, Object obj)
     {
         try
         {
-            e.getClass().getMethod("crashMuenze").invoke(e);
+            e.getClass().getMethod("crash", String.class, Object.class).invoke(e,className,obj);
+            return;
         }
-        catch(Exception ex)
-        {
-            // method does not exist
-        }
-    }
-    public void crashSpieler()
-    {
+        catch(Exception ex) {  /*method does not exist*/ }
+
         try
         {
-            e.getClass().getMethod("crashSpieler").invoke(e);
+            e.getClass().getMethod("crash", String.class).invoke(e,className);
+            return;
         }
-        catch(Exception ex)
+        catch(Exception ex) {  /*method does not exist*/ }
+
+        try
         {
-            // method does not exist
+            e.getClass().getMethod("crash", Object.class).invoke(e,obj);
+            return;
         }
+        catch(Exception ex) {  /*method does not exist*/ }
+
+        try
+        {
+            e.getClass().getMethod("crash").invoke(e);
+            return;
+        }
+        catch(Exception ex) {  /*method does not exist*/ }
+
+
     }
     
     private static int toInt(Object o)
@@ -261,9 +271,9 @@ public class EntityReflection
         if(o instanceof String)
         {
             try {
-                return (int)Integer.parseInt((String)o);
+                return Integer.parseInt((String)o);
             }
-            catch(Throwable t) { }
+            catch(Throwable t) { /* do nothing */ }
         }
         return 0;
     }
