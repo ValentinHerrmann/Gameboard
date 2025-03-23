@@ -14,7 +14,8 @@ class InternalGameboard extends JPanel implements Runnable
     private List<Object> rmEntities = new ArrayList<>();
     private List<Object> addEntities = new ArrayList<>();
     protected boolean isGameRunning = true;
-    protected String gameOverMessage;
+    protected String gameOverMessage = "";
+    protected boolean showHitboxes = false;
 
     private final KeyboardListener keyboardListener = new KeyboardListener(
             new int[] {KeyEvent.VK_LEFT, KeyEvent.VK_UP, KeyEvent.VK_RIGHT, KeyEvent.VK_DOWN, KeyEvent.VK_SPACE,
@@ -101,30 +102,56 @@ class InternalGameboard extends JPanel implements Runnable
                 Image img = e.getImage();
                 int x = e.getX();
                 int y = e.getY();
-                g.drawImage(img,x,y, this);
-                try
+                double scale = e.getScaleFactor();
+                g.drawImage(img, x, y, (int)(img.getWidth(this) * scale), (int)(img.getHeight(this) * scale), this);
+                if (showHitboxes)
                 {
-                    if(e.getText() != null)
-                    {
-                        g.setColor(Color.BLACK);
-                        g.drawString(e.getText(), x, y - 10);
-                    }
-                } catch (Exception ignored) { }
-                try
-                {
-                    Map<Integer,Boolean> pressedKeys = keyboardListener.getPressedKeys();
-                    e.setDown(pressedKeys.get(KeyEvent.VK_DOWN));
-                    e.setLeft(pressedKeys.get(KeyEvent.VK_LEFT));
-                    e.setRight(pressedKeys.get(KeyEvent.VK_RIGHT));
-                    e.setUp(pressedKeys.get(KeyEvent.VK_UP));
-                    e.setSpace(pressedKeys.get(KeyEvent.VK_SPACE));
-                    e.setW(pressedKeys.get(KeyEvent.VK_W));
-                    e.setA(pressedKeys.get(KeyEvent.VK_A));
-                    e.setS(pressedKeys.get(KeyEvent.VK_S));
-                    e.setD(pressedKeys.get(KeyEvent.VK_D));
-                    e.setEnter(pressedKeys.get(KeyEvent.VK_ENTER));
-                } catch (Exception ignored) { }
+                    g.setColor(Color.RED);
+                    g.drawPolygon(e.getHitbox().getPolygon());
+                }
 
+                if(!e.isStatic())
+                {
+                    if(e.getGameoverMessage() != null)
+                    {
+                        gameOverMessage = e.getGameoverMessage();
+                        isGameRunning = false;
+                    }
+                    try
+                    {
+                        if (e.getText() != null)
+                        {
+                            g.setColor(Color.BLACK);
+                            g.drawString(e.getText(), x, y - 10);
+                        }
+                    }
+                    catch (Exception ignored) {}
+                    try
+                    {
+                        if (e.getText() != null)
+                        {
+
+                            g.setColor(Color.BLACK);
+                            g.drawString(e.getText(), x, y - 10);
+                        }
+                    }
+                    catch (Exception ignored) {}
+                    try
+                    {
+                        Map<Integer, Boolean> pressedKeys = keyboardListener.getPressedKeys();
+                        e.setDown(pressedKeys.get(KeyEvent.VK_DOWN));
+                        e.setLeft(pressedKeys.get(KeyEvent.VK_LEFT));
+                        e.setRight(pressedKeys.get(KeyEvent.VK_RIGHT));
+                        e.setUp(pressedKeys.get(KeyEvent.VK_UP));
+                        e.setSpace(pressedKeys.get(KeyEvent.VK_SPACE));
+                        e.setW(pressedKeys.get(KeyEvent.VK_W));
+                        e.setA(pressedKeys.get(KeyEvent.VK_A));
+                        e.setS(pressedKeys.get(KeyEvent.VK_S));
+                        e.setD(pressedKeys.get(KeyEvent.VK_D));
+                        e.setEnter(pressedKeys.get(KeyEvent.VK_ENTER));
+                    }
+                    catch (Exception ignored) {}
+                }
                 Toolkit.getDefaultToolkit().sync();
             }
             catch(Exception ignored) { }
@@ -203,13 +230,19 @@ class InternalGameboard extends JPanel implements Runnable
             beforeTime = System.currentTimeMillis();
         }
 
+        JOptionPane.showMessageDialog(this, gameOverMessage);
         System.exit(0);
     }
     
-    public void start(String title)
+    void start(String title)
     {
         Window window = new Window(title, this);
         window.start();
+    }
+
+    void setShowHitboxes(boolean showHitboxes)
+    {
+        this.showHitboxes = showHitboxes;
     }
 }
 

@@ -1,6 +1,7 @@
 package bbe;
 
 import java.awt.*;
+import java.lang.reflect.Method;
 
 @SuppressWarnings("UnnecessaryReturnStatement")
 class EntityReflection
@@ -8,13 +9,71 @@ class EntityReflection
     private final Object e;
     private Hitbox h;
     private final String backupPath;
+    //private final List<String> notImplementedMethods = new ArrayList<>();
+
+    enum MethodIDs
+    {
+        getX,
+        getY,
+        getText,
+        getImagePath,
+
+        run,
+
+        setUp,
+        setDown,
+        setLeft,
+        setRight,
+        setW,
+        setA,
+        setS,
+        setD,
+        setSpace,
+        setEnter,
+
+        crash,
+        isStatic,
+        getScaleFactor,
+        getGameoverMessage,
+    }
+    private final boolean[] implementedMethodsMap = new boolean[MethodIDs.values().length];
 
 
     EntityReflection(Object entity, String backupImgPath)
     {
         e = entity;
         backupPath = backupImgPath;
+        parseImplementedMethods();
     }
+
+
+    private void parseImplementedMethods()
+    {
+        Method[] methods = e.getClass().getMethods();
+        for(Method m : methods)
+        {
+            try
+            {
+                implementedMethodsMap[MethodIDs.valueOf(m.getName()).ordinal()] = true;
+
+                if(m.getName().equals("isStatic"))
+                {
+                    try
+                    {
+                        implementedMethodsMap[MethodIDs.valueOf(m.getName()).ordinal()] = (Boolean)m.invoke(e);
+                    }
+                    catch (Exception ex) {  /*method does not exist*/ }
+                }
+            }
+            catch (IllegalArgumentException ignored)
+            {
+
+            }
+        }
+    }
+
+
+
 
     Object getEntity()
     {
@@ -22,240 +81,346 @@ class EntityReflection
     }
     Hitbox getHitbox()
     {
-        if(h == null)
-        {
-            Image img = getImage();
-            h = new Hitbox(getX(),getY(),img.getWidth(null),img.getHeight(null));
-        }
-        h.setCoordinates(getX(),getY());
+        Image img = getImage();
+        h = new Hitbox(getX(),getY(),(int)(img.getWidth(null)*getScaleFactor()),(int)(img.getHeight(null)*getScaleFactor()));
         return h;
     }
     Image getImage()
     {
-        try
+        if(implementedMethodsMap[MethodIDs.getImagePath.ordinal()])
         {
-            Object oImg = e.getClass().getMethod("getImagePath").invoke(e);
-            if(oImg instanceof String path)
+            try
             {
-                return ResourceTools.getImage(path);
+                Object oImg = e.getClass().getMethod("getImagePath").invoke(e);
+                if(oImg instanceof String path)
+                {
+                    return ResourceTools.getImage(path);
+                }
             }
-        }
-        catch(Exception ex)
-        {
-            // method does not exist
+            catch(Exception ex)
+            {
+                // method does not exist
+            }
         }
         return ResourceTools.getImage(backupPath);
     }
 
+    double getScaleFactor()
+    {
+
+        if(implementedMethodsMap[MethodIDs.getScaleFactor.ordinal()])
+        {
+            try
+            {
+                return (Double)e.getClass().getMethod("getScaleFactor").invoke(e);
+            }
+            catch (Exception ex)
+            {
+                //System.out.println(ex.getMessage());
+                // method does not exist
+            }
+        }
+        return 1;
+    }
+
+
+    String getGameoverMessage()
+    {
+
+        if(implementedMethodsMap[MethodIDs.getGameoverMessage.ordinal()])
+        {
+            try
+            {
+                String msg = (String)(e.getClass().getMethod("getGameoverMessage").invoke(e));
+                if(msg != null && msg.isEmpty())
+                {
+                    msg = null;
+                }
+                return msg;
+            }
+            catch (Exception ex)
+            {
+                //System.out.println(ex.getMessage());
+                // method does not exist
+            }
+        }
+        return null;
+    }
+
     int getX()
     {
-        try
+
+        if(implementedMethodsMap[MethodIDs.getX.ordinal()])
         {
-            return toInt(e.getClass().getMethod("getX").invoke(e));
-        }
-        catch(Exception ex)
-        {
-            //System.out.println(ex.getMessage());
-            // method does not exist
+            try
+            {
+                return toInt(e.getClass().getMethod("getX").invoke(e));
+            }
+            catch (Exception ex)
+            {
+                //System.out.println(ex.getMessage());
+                // method does not exist
+            }
         }
         return 0;
     }
 
     int getY()
     {
-        try
+        if(implementedMethodsMap[MethodIDs.getY.ordinal()])
         {
-            return toInt(e.getClass().getMethod("getY").invoke(e));
-        }
-        catch(Exception ex)
-        {
-            // method does not exist
+            try
+            {
+                return toInt(e.getClass().getMethod("getY").invoke(e));
+            }
+            catch (Exception ex)
+            {
+                // method does not exist
+            }
         }
         return 0;
     }
 
     String getText()
     {
-        try
+        if(implementedMethodsMap[MethodIDs.getText.ordinal()])
         {
-            Object o = e.getClass().getMethod("getText").invoke(e);
-            if(o instanceof String s)
+            try
             {
-                return s;
+                Object o = e.getClass().getMethod("getText").invoke(e);
+                if (o instanceof String s)
+                {
+                    return s;
+                }
             }
-        }
-        catch(Exception ex)
-        {
-            // method does not exist
+            catch (Exception ex)
+            {
+                // method does not exist
+            }
         }
         return null;
     }
 
     void run()
     {
-        try
+        if(implementedMethodsMap[MethodIDs.run.ordinal()])
         {
-            e.getClass().getMethod("run").invoke(e);
-        }
-        catch(Exception ex)
-        {
-            // method does not exist
+
+            try
+            {
+                e.getClass().getMethod("run").invoke(e);
+            }
+            catch (Exception ex)
+            {
+                // method does not exist
+            }
         }
     }
 
     void setUp(boolean b)
     {
-        try
+        if(implementedMethodsMap[MethodIDs.setUp.ordinal()])
         {
-            e.getClass().getMethod("setUp",boolean.class).invoke(e,b);
-        }
-        catch(Exception ex)
-        {
-            // method does not exist
+            try
+            {
+                e.getClass().getMethod("setUp", boolean.class).invoke(e, b);
+            }
+            catch (Exception ex)
+            {
+                // method does not exist
+            }
         }
     }
 
 
     void setDown(boolean b)
     {
-        try
+
+        if(implementedMethodsMap[MethodIDs.setDown.ordinal()])
         {
-            e.getClass().getMethod("setDown",boolean.class).invoke(e,b);
-        }
-        catch(Exception ex)
-        {
-            // method does not exist
+            try
+            {
+                e.getClass().getMethod("setDown", boolean.class).invoke(e, b);
+            }
+            catch (Exception ex)
+            {
+                // method does not exist
+            }
         }
     }
 
     void setLeft(boolean b)
     {
-        try
+        if(implementedMethodsMap[MethodIDs.setLeft.ordinal()])
         {
-            e.getClass().getMethod("setLeft",boolean.class).invoke(e,b);
-        }
-        catch(Exception ex)
-        {
-            // method does not exist
+
+            try
+            {
+                e.getClass().getMethod("setLeft", boolean.class).invoke(e, b);
+            }
+            catch (Exception ex)
+            {
+                // method does not exist
+            }
         }
     }
 
     void setRight(boolean b)
     {
-        try
+
+        if(implementedMethodsMap[MethodIDs.setRight.ordinal()])
         {
-            e.getClass().getMethod("setRight",boolean.class).invoke(e,b);
-        }
-        catch(Exception ex)
-        {
-            // method does not exist
+            try
+            {
+                e.getClass().getMethod("setRight", boolean.class).invoke(e, b);
+            }
+            catch (Exception ex)
+            {
+                // method does not exist
+            }
         }
     }
 
     void setSpace(boolean b)
     {
-        try
+        if(implementedMethodsMap[MethodIDs.setSpace.ordinal()])
         {
-            e.getClass().getMethod("setSpace",boolean.class).invoke(e,b);
-        }
-        catch(Exception ex)
-        {
-            // method does not exist
+
+            try
+            {
+                e.getClass().getMethod("setSpace", boolean.class).invoke(e, b);
+            }
+            catch (Exception ex)
+            {
+                // method does not exist
+            }
         }
     }
 
     void setEnter(boolean b)
     {
-        try
+
+        if(implementedMethodsMap[MethodIDs.setEnter.ordinal()])
         {
-            e.getClass().getMethod("setEnter",boolean.class).invoke(e,b);
-        }
-        catch(Exception ex)
-        {
-            // method does not exist
+
+            try
+            {
+                e.getClass().getMethod("setEnter", boolean.class).invoke(e, b);
+            }
+            catch (Exception ex)
+            {
+                // method does not exist
+            }
         }
     }
 
     void setW(boolean b)
     {
-        try
+
+        if(implementedMethodsMap[MethodIDs.setW.ordinal()])
         {
-            e.getClass().getMethod("setW",boolean.class).invoke(e,b);
-        }
-        catch(Exception ex)
-        {
-            // method does not exist
+
+            try
+            {
+                e.getClass().getMethod("setW", boolean.class).invoke(e, b);
+            }
+            catch (Exception ex)
+            {
+                // method does not exist
+            }
         }
     }
 
     void setA(boolean b)
     {
-        try
+
+        if(implementedMethodsMap[MethodIDs.setA.ordinal()])
         {
-            e.getClass().getMethod("setA",boolean.class).invoke(e,b);
-        }
-        catch(Exception ex)
-        {
-            // method does not exist
+            try
+            {
+                e.getClass().getMethod("setA", boolean.class).invoke(e, b);
+            }
+            catch (Exception ex)
+            {
+                // method does not exist
+            }
         }
     }
 
     void setS(boolean b)
     {
-        try
+
+        if(implementedMethodsMap[MethodIDs.setS.ordinal()])
         {
-            e.getClass().getMethod("setS",boolean.class).invoke(e,b);
-        }
-        catch(Exception ex)
-        {
-            // method does not exist
+            try
+            {
+                e.getClass().getMethod("setS", boolean.class).invoke(e, b);
+            }
+            catch (Exception ex)
+            {
+                // method does not exist
+            }
         }
     }
 
     void setD(boolean b)
     {
-        try
+
+        if(implementedMethodsMap[MethodIDs.setD.ordinal()])
         {
-            e.getClass().getMethod("setD",boolean.class).invoke(e,b);
-        }
-        catch(Exception ex)
-        {
-            // method does not exist
+
+            try
+            {
+                e.getClass().getMethod("setD", boolean.class).invoke(e, b);
+            }
+            catch (Exception ex)
+            {
+                // method does not exist
+            }
         }
     }
 
     void crash(String className, Object obj)
     {
-        try
+        if(implementedMethodsMap[MethodIDs.crash.ordinal()])
         {
-            e.getClass().getMethod("crash", String.class, Object.class).invoke(e,className,obj);
-            return;
+
+            try
+            {
+                e.getClass().getMethod("crash", String.class, Object.class).invoke(e, className, obj);
+                return;
+            }
+            catch (Exception ex) {  /*method does not exist*/ }
+
+            try
+            {
+                e.getClass().getMethod("crash", String.class).invoke(e, className);
+                return;
+            }
+            catch (Exception ex) {  /*method does not exist*/ }
+
+            try
+            {
+                e.getClass().getMethod("crash", Object.class).invoke(e, obj);
+                return;
+            }
+            catch (Exception ex) {  /*method does not exist*/ }
+
+            try
+            {
+                e.getClass().getMethod("crash").invoke(e);
+                return;
+            }
+            catch (Exception ex) {  /*method does not exist*/ }
         }
-        catch(Exception ex) {  /*method does not exist*/ }
-
-        try
-        {
-            e.getClass().getMethod("crash", String.class).invoke(e,className);
-            return;
-        }
-        catch(Exception ex) {  /*method does not exist*/ }
-
-        try
-        {
-            e.getClass().getMethod("crash", Object.class).invoke(e,obj);
-            return;
-        }
-        catch(Exception ex) {  /*method does not exist*/ }
-
-        try
-        {
-            e.getClass().getMethod("crash").invoke(e);
-            return;
-        }
-        catch(Exception ex) {  /*method does not exist*/ }
-
-
     }
+
+    boolean isStatic()
+    {
+        return implementedMethodsMap[MethodIDs.isStatic.ordinal()];
+    }
+
+
     
     private static int toInt(Object o)
     {
