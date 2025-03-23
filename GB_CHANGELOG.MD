@@ -1,9 +1,17 @@
 ## Changelog: [Gameboard](https://github.com/ValentinHerrmann/Gameboard)
 
-### [Version 2.0 (in development)](https://github.com/ValentinHerrmann/Gameboard/releases/tag/2.0)
-- Load images by name from project-folder, resources-folder, images-folder or jar-library (checked in this order) (https://github.com/ValentinHerrmann/Gameboard/pull/3)
-- More generic methods in EntityReflection and Gameboard (https://github.com/ValentinHerrmann/Gameboard/pull/3)
+### [Version 2.0](https://github.com/ValentinHerrmann/Gameboard/releases/tag/2.0)
+- not backward compatible to 1.x !
+#### Pull Request https://github.com/ValentinHerrmann/Gameboard/pull/3:
+- Load images by name from project-folder, resources-folder, images-folder or jar-library (checked in this order)
+- More generic methods in EntityReflection and Gameboard
 - Renamed package to `bbe` (shorter)
+#### Pull Request https://github.com/ValentinHerrmann/Gameboard/pull/8:
+- Added several images to resources (players, items and blocks from minecraft, supermario and spongebob + several backgrounds)
+- Improved performance (check existing methods once, option to set as static = skip calling of several methods)
+- Option to show hitboxes.
+- Option to scale entity images by any factor (at any time of the game).
+- Option to let game end and set game over message fom any entity on the gameboard.
 
 ### [Version 1.2](https://github.com/ValentinHerrmann/Gameboard/releases/tag/1.2)
 - Build Gameboard from IntelliJ

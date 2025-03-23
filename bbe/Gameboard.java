@@ -35,6 +35,11 @@ public class Gameboard
         gb.setBackgroundImagePath(backgroundImagePath);
     }
 
+    public void setShowHitboxes(boolean showHitboxes)
+    {
+        gb.setShowHitboxes(showHitboxes);
+    }
+
     public Object[] getObjects()
     {
         return gb.getObjects();
