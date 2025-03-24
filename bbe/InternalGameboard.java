@@ -104,6 +104,7 @@ class InternalGameboard extends JPanel implements Runnable
                 int y = e.getY();
                 double scale = e.getScaleFactor();
                 g.drawImage(img, x, y, (int)(img.getWidth(this) * scale), (int)(img.getHeight(this) * scale), this);
+
                 if (showHitboxes)
                 {
                     g.setColor(Color.RED);
@@ -121,16 +122,6 @@ class InternalGameboard extends JPanel implements Runnable
                     {
                         if (e.getText() != null)
                         {
-                            g.setColor(Color.BLACK);
-                            g.drawString(e.getText(), x, y - 10);
-                        }
-                    }
-                    catch (Exception ignored) {}
-                    try
-                    {
-                        if (e.getText() != null)
-                        {
-
                             g.setColor(Color.BLACK);
                             g.drawString(e.getText(), x, y - 10);
                         }
