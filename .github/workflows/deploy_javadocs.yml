@@ -1,8 +1,6 @@
 name: (push) Build Maven and Deploy JavaDoc
 
 on:
-    push:
-        branches: [ "main" ]
     pull_request:
         branches: [ "main" ]
 
