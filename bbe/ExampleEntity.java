@@ -1,5 +1,13 @@
 package bbe;
 
+/**
+ * Diese Klasse ist ein Beispiel für ein Entity, das alle möglichen Methoden implementiert. Wird eine Methode mit
+ * Rückgabetyp void in einer Entity-Klasse nicht implementiert, wird sie ignoriert. Wird eine Methode mit Rückgabetyp
+ * nicht implementiert wird der unten angegebene Standardwert verwendet.
+ *
+ * @author Valentin Herrman
+ */
+
 public class ExampleEntity
 {
     /**
@@ -27,63 +35,114 @@ public class ExampleEntity
     }
 
     /**
-     *
+     * TODO: Dokumentation kommt in den nächsten Tagen.
      */
     public String getImagePath()
     {
         return "player/car.gif";
     }
+    /**
+     * TODO: Dokumentation kommt in den nächsten Tagen.
+     */
     public double getScaleFactor()
     {
         return 1;
     }
+    /**
+     * TODO: Dokumentation kommt in den nächsten Tagen.
+     */
     public boolean isStatic()
     {
         return false;
     }
+    /**
+     * TODO: Dokumentation kommt in den nächsten Tagen.
+     */
     public String getGameoverMessage()
     {
         return "";
     }
+    /**
+     * TODO: Dokumentation kommt in den nächsten Tagen.
+     */
     public void crash()
     {
     }
+    /**
+     * TODO: Dokumentation kommt in den nächsten Tagen.
+     */
     public void crash(String otherClassname)
     {
     }
+    /**
+     * TODO: Dokumentation kommt in den nächsten Tagen.
+     */
     public void crash(Object other)
     {
     }
+    /**
+     * TODO: Dokumentation kommt in den nächsten Tagen.
+     */
     public void crash(String otherClassname, Object other)
     {
     }
+    /**
+     * TODO: Dokumentation kommt in den nächsten Tagen.
+     */
     public void setLeft(boolean pressed)
     {
     }
+    /**
+     * TODO: Dokumentation kommt in den nächsten Tagen.
+     */
     public void setRight(boolean pressed)
     {
     }
+    /**
+     * TODO: Dokumentation kommt in den nächsten Tagen.
+     */
     public void setUp(boolean pressed)
     {
     }
+    /**
+     * TODO: Dokumentation kommt in den nächsten Tagen.
+     */
     public void setDown(boolean pressed)
     {
     }
+    /**
+     * TODO: Dokumentation kommt in den nächsten Tagen.
+     */
     public void setW(boolean pressed)
     {
     }
+    /**
+     * TODO: Dokumentation kommt in den nächsten Tagen.
+     */
     public void setA(boolean pressed)
     {
     }
+    /**
+     * TODO: Dokumentation kommt in den nächsten Tagen.
+     */
     public void setS(boolean pressed)
     {
     }
+    /**
+     * TODO: Dokumentation kommt in den nächsten Tagen.
+     */
     public void setD(boolean pressed)
     {
     }
+    /**
+     * TODO: Dokumentation kommt in den nächsten Tagen.
+     */
     public void setEnter(boolean pressed)
     {
     }
+    /**
+     * TODO: Dokumentation kommt in den nächsten Tagen.
+     */
     public void setSpace(boolean pressed)
     {
     }
