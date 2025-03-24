@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"bbe","l":"EntityReflection"},{"p":"bbe","l":"ExampleEntity"},{"p":"bbe","l":"Gameboard"},{"p":"bbe","l":"Hitbox"},{"p":"bbe","l":"InternalGameboard"},{"p":"bbe","l":"KeyboardListener"},{"p":"bbe","l":"EntityReflection.MethodIDs"},{"p":"bbe","l":"ResourceTools"},{"p":"bbe","l":"Window"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"bbe","l":"ExampleEntity"},{"p":"bbe","l":"Gameboard"}];updateSearchResults();
