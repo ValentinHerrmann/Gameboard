@@ -2,7 +2,6 @@ package bbe;
 
 public class ExampleEntity
 {
-
     /**
      * Rückgabewert ist x-Koordinate des Entities. Implementierung ist optional, falls nicht implementiert, wird 0 verwendet.
      */
