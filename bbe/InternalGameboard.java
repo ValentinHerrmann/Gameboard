@@ -16,6 +16,7 @@ class InternalGameboard extends JPanel implements Runnable
     protected boolean isGameRunning = true;
     protected String gameOverMessage = "";
     protected boolean showHitboxes = false;
+    private Image backgroundImage = null;
 
     private final KeyboardListener keyboardListener = new KeyboardListener(
             new int[] {KeyEvent.VK_LEFT, KeyEvent.VK_UP, KeyEvent.VK_RIGHT, KeyEvent.VK_DOWN, KeyEvent.VK_SPACE,
@@ -42,10 +43,11 @@ class InternalGameboard extends JPanel implements Runnable
         try
         {
             String absolutePath = Paths.get(backgroundImagePath).toAbsolutePath().toString();
-            Image backgroundImage = new ImageIcon(absolutePath).getImage();
+            backgroundImage = new ImageIcon(absolutePath).getImage();
             int w = backgroundImage.getWidth(this);
             int h = backgroundImage.getHeight(this);
             setPreferredSize(new Dimension(w, h));
+
         }
         catch(Exception ignored) { }
     }
@@ -94,6 +96,10 @@ class InternalGameboard extends JPanel implements Runnable
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
+        if (this.backgroundImage != null) {
+            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+        }
+
 
         for(EntityReflection e : entities)
         {
