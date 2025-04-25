@@ -1,0 +1,5 @@
+#BlueJ class context
+comment0.target=ResourceTools
+comment1.params=name
+comment1.target=java.awt.Image\ getImage(java.lang.String)
+numComments=2
