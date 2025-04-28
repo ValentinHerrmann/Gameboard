@@ -21,6 +21,13 @@ jobs:
           #target-folder:  # url will be https://<username>.github.io/<repo>/javadoc, This can be left as nothing to generate javadocs in the root folder.
           project: maven # or gradle
           #subdirectories: resources #for subdirectories support, needs to be run with custom command
+      - name: Copy resources from main Branch to JavaDoc Branch
+        run: 
+          git fetch origin main
+          git checkout main -- resources
+          git add resources
+          git commit -m "Copy resources folder from main branch"
+          git push origin javadoc
   build:
 
     runs-on: ubuntu-latest
