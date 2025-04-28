@@ -22,14 +22,9 @@ jobs:
           project: maven # or gradle
           #subdirectories: resources #for subdirectories support, needs to be run with custom command
       - name: Copy resources from main Branch to JavaDoc Branch
-        run: 
-          git fetch origin main
-          mkdir main_resources
-          git clone --single-branch --branch main
-          cd ..
-          mkdir javadoc_resources
-          git clone --single-branch --branch javadoc
-          cd ..
+        run:
+          git clone -b main --single-branch https://github.com/ValentinHerrmann/Gameboard.git main
+          git clone -b javadoc --single-branch https://github.com/ValentinHerrmann/Gameboard.git javadoc
           cp -r main/resources javadoc/resources
           cd javadoc
           git add resources
