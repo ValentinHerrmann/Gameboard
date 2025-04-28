@@ -1,5 +1,10 @@
 package bbe;
 
+/**
+ * Diese Klasse ist das Spielfeld, auf dem die Entities angezeigt und bewegt werden. 
+ *
+ * @author Valentin Herrman
+ */
 @SuppressWarnings("unused")
 public class Gameboard
 {

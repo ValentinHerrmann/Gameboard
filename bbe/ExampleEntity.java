@@ -7,7 +7,6 @@ package bbe;
  *
  * @author Valentin Herrman
  */
-
 public class ExampleEntity
 {
     /**
@@ -35,7 +34,7 @@ public class ExampleEntity
     }
 
     /**
-     * Der Rückgabewert wird als Bild für das Entity angezeigt. Eine Übersicht über alle im Paket verfügbaren Bilder gibt es hier: <a href="https://gameboard.valentin-herrmann.com/resources/images.html">gameboard.valentin-herrmann.com/resources/images.html</a>
+     * Der Rückgabewert wird als Bild für das Entity angezeigt - eine Übersicht über alle im Paket verfügbaren Bilder gibt es hier: <a href="https://gameboard.valentin-herrmann.com/resources/images.html">gameboard.valentin-herrmann.com/resources/images.html</a>
      */
     public String getImagePath()
     {
@@ -63,85 +62,88 @@ public class ExampleEntity
         return "";
     }
     /**
-     * TODO: Dokumentation kommt in den nächsten Tagen.
+     * Es kann nur eine der crash-Varianten implementiert werden! Methode wird aufgerufen, wenn das Entity mit einem anderen Entity kollidiert. 
      */
     public void crash()
     {
     }
     /**
-     * TODO: Dokumentation kommt in den nächsten Tagen.
+     * Es kann nur eine der crash-Varianten implementiert werden! Methode wird aufgerufen, wenn das Entity mit einem anderen Entity kollidiert. 
+     * Der Wert des Parameters otherClassname ist der Name der Klasse des anderen Entities.
      */
     public void crash(String otherClassname)
     {
     }
     /**
-     * TODO: Dokumentation kommt in den nächsten Tagen.
+     * Es kann nur eine der crash-Varianten implementiert werden! Methode wird aufgerufen, wenn das Entity mit einem anderen Entity kollidiert. 
+     * Der Wert des Parameters ist das Objekt, mit dem das Entity kollidiert ist.
      */
     public void crash(Object other)
     {
     }
     /**
-     * TODO: Dokumentation kommt in den nächsten Tagen.
+     * Es kann nur eine der crash-Varianten implementiert werden! Methode wird aufgerufen, wenn das Entity mit einem anderen Entity kollidiert. 
+     * Der erste Parameter enthält den Namen der Klasse des anderen Entities, der zweite Parameter ist das Objekt, mit dem das Entity kollidiert ist.
      */
     public void crash(String otherClassname, Object other)
     {
     }
     /**
-     * TODO: Dokumentation kommt in den nächsten Tagen.
+     * Wird aufgerufen, wenn der Pfeil nach links gedrückt oder losgelassen wird. Der Parameter pressed ist true, wenn die Taste gedrückt wird, und false, wenn sie losgelassen wird.
      */
     public void setLeft(boolean pressed)
     {
     }
     /**
-     * TODO: Dokumentation kommt in den nächsten Tagen.
+     * Wird aufgerufen, wenn der Pfeil nach rechts gedrückt oder losgelassen wird. Der Parameter pressed ist true, wenn die Taste gedrückt wird, und false, wenn sie losgelassen wird.
      */
     public void setRight(boolean pressed)
     {
     }
     /**
-     * TODO: Dokumentation kommt in den nächsten Tagen.
+     * Wird aufgerufen, wenn der Pfeil nach oben gedrückt oder losgelassen wird. Der Parameter pressed ist true, wenn die Taste gedrückt wird, und false, wenn sie losgelassen wird.
      */
     public void setUp(boolean pressed)
     {
     }
     /**
-     * TODO: Dokumentation kommt in den nächsten Tagen.
+     * Wird aufgerufen, wenn der Pfeil nach unten gedrückt oder losgelassen wird. Der Parameter pressed ist true, wenn die Taste gedrückt wird, und false, wenn sie losgelassen wird.
      */
     public void setDown(boolean pressed)
     {
     }
     /**
-     * TODO: Dokumentation kommt in den nächsten Tagen.
+     * Wird aufgerufen, wenn die Taste W gedrückt oder losgelassen wird. Der Parameter pressed ist true, wenn die Taste gedrückt wird, und false, wenn sie losgelassen wird.
      */
     public void setW(boolean pressed)
     {
     }
     /**
-     * TODO: Dokumentation kommt in den nächsten Tagen.
+     * Wird aufgerufen, wenn die Taste A gedrückt oder losgelassen wird. Der Parameter pressed ist true, wenn die Taste gedrückt wird, und false, wenn sie losgelassen wird.
      */
     public void setA(boolean pressed)
     {
     }
     /**
-     * TODO: Dokumentation kommt in den nächsten Tagen.
+     * Wird aufgerufen, wenn die Taste S gedrückt oder losgelassen wird. Der Parameter pressed ist true, wenn die Taste gedrückt wird, und false, wenn sie losgelassen wird.
      */
     public void setS(boolean pressed)
     {
     }
     /**
-     * TODO: Dokumentation kommt in den nächsten Tagen.
+     * Wird aufgerufen, wenn die Taste D gedrückt oder losgelassen wird. Der Parameter pressed ist true, wenn die Taste gedrückt wird, und false, wenn sie losgelassen wird.
      */
     public void setD(boolean pressed)
     {
     }
     /**
-     * TODO: Dokumentation kommt in den nächsten Tagen.
+     * Wird aufgerufen, wenn die Enter-Taste gedrückt oder losgelassen wird. Der Parameter pressed ist true, wenn die Taste gedrückt wird, und false, wenn sie losgelassen wird.
      */
     public void setEnter(boolean pressed)
     {
     }
     /**
-     * TODO: Dokumentation kommt in den nächsten Tagen.
+     * Wird aufgerufen, wenn die Leertaste gedrückt oder losgelassen wird. Der Parameter pressed ist true, wenn die Taste gedrückt wird, und false, wenn sie losgelassen wird.
      */
     public void setSpace(boolean pressed)
     {
