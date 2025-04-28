@@ -24,10 +24,17 @@ jobs:
       - name: Copy resources from main Branch to JavaDoc Branch
         run: 
           git fetch origin main
-          git checkout main -- resources
+          mkdir main_resources
+          git clone --single-branch --branch main
+          cd ..
+          mkdir javadoc_resources
+          git clone --single-branch --branch javadoc
+          cd ..
+          cp -r main/resources javadoc/resources
+          cd javadoc
           git add resources
           git commit -m "Copy resources folder from main branch"
-          git push origin javadoc
+          git push
   build:
 
     runs-on: ubuntu-latest
