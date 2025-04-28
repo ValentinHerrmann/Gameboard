@@ -55,7 +55,8 @@ public class ExampleEntity
         return false;
     }
     /**
-     * TODO: Dokumentation kommt in den nächsten Tagen.
+     * Solange diese Methode bei allen Entities einen leeren String ("") zurückgibt, läuft das Spiel.
+     * Sobald irgendein Entity auf dem Spielfeld einen Text zurückgibt, wird das Spiel beendet und der Text angezeigt.
      */
     public String getGameoverMessage()
     {
