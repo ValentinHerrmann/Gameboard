@@ -35,21 +35,21 @@ public class ExampleEntity
     }
 
     /**
-     * TODO: Dokumentation kommt in den nächsten Tagen.
+     * Der Rückgabewert wird als Bild für das Entity angezeigt. Eine Übersicht über alle im Paket verfügbaren Bilder gibt es hier: <a href="https://gameboard.valentin-herrmann.com/resources/images.html">gameboard.valentin-herrmann.com/resources/images.html</a>
      */
     public String getImagePath()
     {
         return "player/car.gif";
     }
     /**
-     * TODO: Dokumentation kommt in den nächsten Tagen.
+     * Der Rückgabewert ist der Skalierungsfaktor des Bildes und kann fortlaufend geändert werden. Faktor 1.0 bedeutet kein Zoom.
      */
     public double getScaleFactor()
     {
         return 1;
     }
     /**
-     * TODO: Dokumentation kommt in den nächsten Tagen.
+     * Gibt diese Methode true zurück, werden folgende Methoden NICHT genutzt: getGameoverMessage(), getText(), setW(boolean), setA(boolean), ...
      */
     public boolean isStatic()
     {

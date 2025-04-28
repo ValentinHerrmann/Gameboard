@@ -49,7 +49,7 @@ public class Gameboard
     /**
      * Den Dateipfad des Hintergrundbildes setzen. Dateipfade beginnen entweder direkt im Projektordner oder im
      * Unterordner "resources". In Dateipfaden werden Ordner mit "/" getrennt. Bilder aus diesem Paket sind ebenfalls
-     * verfuegbar (z.B. mit "background/gras_1200x691.jpg").
+     * verfuegbar (z.B. mit "background/gras_1200x691.jpg"): <a href="https://gameboard.valentin-herrmann.com/resources/images.html">gameboard.valentin-herrmann.com/resources/images.html</a>
      * @param backgroundImagePath Der Dateipfad des Hintergrundbildes mit Dateiendung (.png, .gif, .jpg, ...).
      */
     public void setBackgroundImagePath(String backgroundImagePath)
