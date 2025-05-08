@@ -5,31 +5,36 @@
 
 A basic Gameboard package to be installed in `.../BlueJ/lib/userlib`. 
 
-All images need to be placed in the project folder. 
+All images need to be placed in the project folder or be loaded from the resources of this library. 
 
 ### Getting started 
+
+In your main create a Gameboard and add entities like this:
+``` java 
+public static void main(String[] args) { 
+    Gameboard board = new Gameboard(); 
+    board.setBackgroundImagePath("background/gras_1200x691.jpg"); 
+    
+    CustomPlayer player = new CustomPlayer();
+    board.add(player); 
+    
+    board.start("Custom Window Title");
+} 
+``` 
+
+Optional: Customize Gameboard:
 ``` java 
 import bbe.*; 
-public CustomClassName extens Gameboard { 
+public CustomClassName extends Gameboard { 
     // implement custom functionality for your Gameboard 
 } 
 ``` 
 
-In your main create a Gameboard and add players and coins like this: 
-``` java 
-public static void main(String[] args) { 
-    Gameboard board = new Gameboard; 
-    board.addSpieler(new CustomPlayer(x,y)); 
-    board.addSpieler(new Coin(coinX,coinY)); // the coin class is provided by this library 
-} 
-``` 
 
-The Gameboard cycles through the run-Methods of all players and then displays them at their position using getX() and getY(). 
 
-CustomPlayer classes can use the follwoing methods: 
-- `int getX()`, `int getY()`: used by Gameboard to determine the player's position. Allows `Double`, `Float`, `Integer`, `Long`, `Short`, `Byte` as return type (which are then internally converted to int). The coordinates are interpreted as upper left corner of the player. 
-- `void run()`: Is called by Gameboard for all players in every cycle before displaying the positions. This method should implement moving behavior etc. 
-- `String getImage()`: Returns the name of the Image that represents the player and shall be displayed on the Gameboard. Images can be placed in the project folder, resources subfolder or images subfolder. Images in the resources of this library are also available.
-- `String getText()`: returns are Text that shall be displayed next to the players image. 
-- `void crashMuenze()`: Is called by Gameboard when a player's hitbox hits the hitbox of a coin (the outer borders of the images are interpreted as hitbox)
-- `void setLeft(boolean)`, `void setRight(boolean)`, `void setUp(boolean)`, `void setDown(boolean)`, `void setW(boolean)`, `void setA(boolean)`, `void setS(boolean)`, `void setD(boolean)`, `void setEnter(boolean)`, `void setSpace(boolean)`: Are called by Gameboard in every cycle to set if the named keys are currently pressed.
+The Gameboard cycles through the run-Methods of all entities and then displays them at their position using getX() and getY(). 
+
+More details on how to implement entity classes with arbitrary names as well as available images for background 
+and entities can be found here: 
+
+[gameboard.valentin-herrmann.com](https://gameboard.valentin-herrmann.com)
