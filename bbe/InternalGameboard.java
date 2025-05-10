@@ -43,7 +43,15 @@ class InternalGameboard extends JPanel implements Runnable
         try
         {
             String absolutePath = Paths.get(backgroundImagePath).toAbsolutePath().toString();
-            backgroundImage = new ImageIcon(absolutePath).getImage();
+            Object oImg = e.getClass().getMethod("getImagePath").invoke(e);
+            if(oImg instanceof String path)
+            {
+                backgroundImage = ResourceTools.getImage(path);
+            }
+            else
+            {
+                return;
+            }
             int w = backgroundImage.getWidth(this);
             int h = backgroundImage.getHeight(this);
             setPreferredSize(new Dimension(w, h));
