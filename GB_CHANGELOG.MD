@@ -1,5 +1,8 @@
 ## Changelog: [Gameboard](https://github.com/ValentinHerrmann/Gameboard)
 
+### [Version 2.1](https://github.com/ValentinHerrmann/Gameboard/releases/tag/2.1)
+- fixed background image not being loaded
+
 ### [Version 2.0](https://github.com/ValentinHerrmann/Gameboard/releases/tag/2.0)
 - not backward compatible to 1.x !
 #### Pull Request https://github.com/ValentinHerrmann/Gameboard/pull/3:
