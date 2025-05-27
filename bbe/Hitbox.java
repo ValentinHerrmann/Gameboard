@@ -9,8 +9,10 @@ class Hitbox
     private int y;
     private int previousX;
     private int previousY;
-    private final int width;
-    private final int height;
+    private int width;
+    private int height;
+    private int previousHeight;
+    private int previousWidth;
 
     private boolean intersectsFromTop;
     private boolean intersectsFromBottom;
@@ -38,6 +40,23 @@ class Hitbox
         this.y = y;
 
         intersectionsDetermined = false; // = intersectsFromTop = intersectsFromBottom = intersectsFromLeft = intersectsFromRight = false;
+
+        if(previousX != x || previousY != y)
+        {
+            System.out.println(getPolygon().getBounds());
+        }
+    }
+
+    void setWidth(int width)
+    {
+        previousWidth = this.width;
+        this.width = width;
+    }
+
+    void setHeight(int height)
+    {
+        previousHeight = this.height;
+        this.height = height;
     }
 
     Polygon getPolygon()
@@ -50,7 +69,9 @@ class Hitbox
 
     boolean collidesWithOther(Hitbox other)
     {
-        lastWasCollision = lastStepPolygon().intersects(other.getPolygon().getBounds());
+        Polygon lp = lastStepPolygon();
+        Polygon op = other.getPolygon();
+        lastWasCollision = lp.intersects(op.getBounds());
         return lastWasCollision;
     }
 
@@ -114,12 +135,21 @@ class Hitbox
     {
         int[] xPoints = new int[8];
         System.arraycopy(getPolygon().xpoints, 0, xPoints, 0, 4);
-        System.arraycopy(new Hitbox(previousX,previousY,width,height).getPolygon().xpoints, 0, xPoints, 4, 4);
+        System.arraycopy(new Hitbox(previousX,previousY,previousWidth,previousHeight).getPolygon().xpoints, 0, xPoints, 4, 4);
 
         int[] yPoints = new int[8];
         System.arraycopy(getPolygon().ypoints, 0, yPoints, 0, 4);
-        System.arraycopy(new Hitbox(previousX,previousY,width,height).getPolygon().ypoints, 0, yPoints, 4, 4);
+        System.arraycopy(new Hitbox(previousX,previousY,previousWidth,previousHeight).getPolygon().ypoints, 0, yPoints, 4, 4);
 
+
+        if(         previousX  <= 0 && xPoints[0] > previousX + 5*width    // links raus geflogen
+                ||  xPoints[0] <= 0 && previousX > xPoints[0] + 5*width    // rechts raus geflogen
+                ||  previousY  <= 0 && yPoints[0] > previousY + 5*height    // oben raus geflogen
+                ||  yPoints[0] <= 0 && previousY > yPoints[0] + 5*height    // unten raus geflogen
+        )
+        {
+            return getPolygon();
+        }
         return new Polygon(xPoints, yPoints, 8);
     }
 

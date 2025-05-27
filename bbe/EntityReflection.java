@@ -82,7 +82,17 @@ class EntityReflection
     Hitbox getHitbox()
     {
         Image img = getImage();
-        h = new Hitbox(getX(),getY(),(int)(img.getWidth(null)*getScaleFactor()),(int)(img.getHeight(null)*getScaleFactor()));
+        if(h==null)
+        {
+            h = new Hitbox(getX(),getY(),(int)(img.getWidth(null)*getScaleFactor()),(int)(img.getHeight(null)*getScaleFactor()));
+        }
+        else
+        {
+            h.setCoordinates(getX(), getY());
+            h.setWidth((int)(img.getWidth(null)*getScaleFactor()));
+            h.setHeight((int)(img.getHeight(null)*getScaleFactor()));
+        }
+
         return h;
     }
     Image getImage()
@@ -209,6 +219,7 @@ class EntityReflection
             try
             {
                 e.getClass().getMethod("run").invoke(e);
+                //h.setCoordinates(getX(), getY());
             }
             catch (Exception ex)
             {
@@ -421,7 +432,7 @@ class EntityReflection
     }
 
 
-    
+
     private static int toInt(Object o)
     {
         if(o instanceof Double) {

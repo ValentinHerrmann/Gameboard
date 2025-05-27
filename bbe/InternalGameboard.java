@@ -3,7 +3,6 @@ package bbe;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -114,6 +113,8 @@ class InternalGameboard extends JPanel implements Runnable
                 {
                     g.setColor(Color.RED);
                     g.drawPolygon(e.getHitbox().getPolygon());
+                    g.setColor(Color.blue);
+                    g.drawPolygon(e.getHitbox().lastStepPolygon());
                 }
 
                 if(!e.isStatic())
@@ -170,6 +171,8 @@ class InternalGameboard extends JPanel implements Runnable
                         if(e.getHitbox().collidesWithOther(other.getHitbox()))
                         {
                             e.crash(other.getEntity().getClass().getSimpleName(), other.getEntity());
+                            boolean v = e.getHitbox().collidesWithOther(other.getHitbox());
+                            System.out.println(other.getHitbox().getPolygon().getBounds());
                         }
                     }
                 }
@@ -177,7 +180,7 @@ class InternalGameboard extends JPanel implements Runnable
             catch(Exception ignored) { }
         }
     }
-    
+
     private void applyEntityModifications()
     {
         try
@@ -229,7 +232,7 @@ class InternalGameboard extends JPanel implements Runnable
         JOptionPane.showMessageDialog(this, gameOverMessage);
         System.exit(0);
     }
-    
+
     void start(String title)
     {
         Window window = new Window(title, this);

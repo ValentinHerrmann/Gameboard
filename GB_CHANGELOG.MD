@@ -1,5 +1,9 @@
 ## Changelog: [Gameboard](https://github.com/ValentinHerrmann/Gameboard)
 
+### [Version 2.2](https://github.com/ValentinHerrmann/Gameboard/releases/tag/2.2)
+#### Pull Request https://github.com/ValentinHerrmann/Gameboard/pull/10:
+- fixed collision detection 
+
 ### [Version 2.1](https://github.com/ValentinHerrmann/Gameboard/releases/tag/2.1)
 - fixed background image not being loaded
 
