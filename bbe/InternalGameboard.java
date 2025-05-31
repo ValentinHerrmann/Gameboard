@@ -171,8 +171,6 @@ class InternalGameboard extends JPanel implements Runnable
                         if(e.getHitbox().collidesWithOther(other.getHitbox()))
                         {
                             e.crash(other.getEntity().getClass().getSimpleName(), other.getEntity());
-                            boolean v = e.getHitbox().collidesWithOther(other.getHitbox());
-                            System.out.println(other.getHitbox().getPolygon().getBounds());
                         }
                     }
                 }

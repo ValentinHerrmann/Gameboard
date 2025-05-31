@@ -40,11 +40,6 @@ class Hitbox
         this.y = y;
 
         intersectionsDetermined = false; // = intersectsFromTop = intersectsFromBottom = intersectsFromLeft = intersectsFromRight = false;
-
-        if(previousX != x || previousY != y)
-        {
-            System.out.println(getPolygon().getBounds());
-        }
     }
 
     void setWidth(int width)
