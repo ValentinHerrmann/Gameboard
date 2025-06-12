@@ -57,7 +57,7 @@ class InternalGameboard extends JPanel implements Runnable
     public void add(Object obj)
     {
         addEntities.add(obj);
-        applyEntityModifications();
+        //applyEntityModifications();
     }
 
 
