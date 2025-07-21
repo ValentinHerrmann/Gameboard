@@ -1,7 +1,11 @@
 ## Changelog: [Gameboard](https://github.com/ValentinHerrmann/Gameboard)
 
+
+### [Version 2.4](https://github.com/ValentinHerrmann/Gameboard/releases/tag/2.4)
+- added bee as player image
+
 ### [Version 2.3](https://github.com/ValentinHerrmann/Gameboard/releases/tag/2.3)
-#### Pull Request https://github.com/ValentinHerrmann/Gameboard/pull/11:
+#### Pull Request https://github.com/ValentinHerrmann/Gameboard/pull/13:
 - fixed bug when clearing gameboard (and propably when adding entities)
 - New Images: Mario with movements, Sushi and Wasabi
 

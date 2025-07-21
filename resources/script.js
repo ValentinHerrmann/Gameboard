@@ -14,6 +14,7 @@ const resources = {
         "background/white_600x300.jpg"],
     "Player": [
         "player/alex.png",
+        "player/bee.png",
         "player/bowser.png",
         "player/car.gif",
         "player/carCrashed.gif",
